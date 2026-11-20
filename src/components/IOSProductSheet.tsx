@@ -353,7 +353,7 @@ export default function IOSProductSheet({
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-400">Compatibility</span>
-                <span className="font-semibold text-slate-800 dark:text-slate-200">Works on this iPhone</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">Works on this kPhone (KamalOS 18)</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-slate-400">Languages</span>

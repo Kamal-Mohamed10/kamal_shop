@@ -2,18 +2,22 @@
 
 import React from 'react';
 import DynamicIsland from './DynamicIsland';
-import { Wifi, Battery, Signal } from 'lucide-react';
+import { Wifi, Signal } from 'lucide-react';
 
 export type PhoneFinish = 'natural' | 'desert' | 'black' | 'silver';
 
 interface PhoneFrameProps {
   children: React.ReactNode;
+  bottomBar?: React.ReactNode;
+  overlay?: React.ReactNode;
   onOpenProfile: () => void;
   finish?: PhoneFinish;
 }
 
 export default function PhoneFrame({
   children,
+  bottomBar,
+  overlay,
   onOpenProfile,
   finish = 'natural',
 }: PhoneFrameProps) {
@@ -50,51 +54,52 @@ export default function PhoneFrame({
   }[finish];
 
   return (
-    <div className="relative mx-auto flex items-center justify-center p-2 sm:p-6 lg:p-8">
+    <div className="relative flex h-full max-h-full items-center justify-center select-none">
       {/* Outer ambient glow behind the phone */}
       <div
-        className={`pointer-events-none absolute h-[720px] w-[390px] rounded-[70px] bg-gradient-to-tr ${finishStyles.glow} blur-3xl filter transition-all duration-700`}
+        className={`pointer-events-none absolute h-[90%] w-[90%] max-w-[380px] rounded-[70px] bg-gradient-to-tr ${finishStyles.glow} blur-3xl filter transition-all duration-700`}
       />
 
-      {/* The Physical iPhone 16 Pro Mockup Chassis */}
+      {/* The Physical kPhone 16 Pro Mockup Chassis */}
       <div
-        className={`relative w-full max-w-[400px] h-[844px] rounded-[55px] p-[3px] border-[10px] shadow-[0_35px_90px_rgba(0,0,0,0.65),0_15px_35px_rgba(0,0,0,0.4)] transition-all duration-500 ${finishStyles.outerBorder} ${finishStyles.outerBg}`}
+        className={`relative h-full max-h-[820px] aspect-[390/844] max-w-[calc(100vw-2rem)] w-auto rounded-[50px] sm:rounded-[54px] p-[2.5px] border-[8px] sm:border-[10px] shadow-[0_25px_70px_rgba(0,0,0,0.7),0_10px_25px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col ${finishStyles.outerBorder} ${finishStyles.outerBg}`}
       >
         {/* Specular outer metal reflection chamfer */}
         <div
-          className={`pointer-events-none absolute -inset-[2px] rounded-[56px] border ${finishStyles.outerRim}`}
+          className={`pointer-events-none absolute -inset-[2px] rounded-[52px] sm:rounded-[56px] border ${finishStyles.outerRim}`}
         />
 
-        {/* Physical Titanium Hardware Buttons */}
+        {/* Physical Titanium Hardware Buttons (proportional positioning) */}
         {/* Left Side: Action Button */}
-        <div className="pointer-events-none absolute -left-[13px] top-[115px] h-8 w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
+        <div className="pointer-events-none absolute -left-[12px] top-[14%] h-[4%] w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
         {/* Left Side: Volume Up */}
-        <div className="pointer-events-none absolute -left-[13px] top-[165px] h-12 w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
+        <div className="pointer-events-none absolute -left-[12px] top-[20%] h-[6%] w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
         {/* Left Side: Volume Down */}
-        <div className="pointer-events-none absolute -left-[13px] top-[230px] h-12 w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
+        <div className="pointer-events-none absolute -left-[12px] top-[28%] h-[6%] w-1 rounded-l-md bg-slate-500/90 shadow-sm" />
         {/* Right Side: Power Button */}
-        <div className="pointer-events-none absolute -right-[13px] top-[180px] h-18 w-1 rounded-r-md bg-slate-500/90 shadow-sm" />
+        <div className="pointer-events-none absolute -right-[12px] top-[22%] h-[9%] w-1 rounded-r-md bg-slate-500/90 shadow-sm" />
 
         {/* Antenna bands */}
-        <div className={`pointer-events-none absolute -left-[10px] top-20 h-1 w-2 ${finishStyles.antenna}`} />
-        <div className={`pointer-events-none absolute -right-[10px] top-20 h-1 w-2 ${finishStyles.antenna}`} />
-        <div className={`pointer-events-none absolute -left-[10px] bottom-20 h-1 w-2 ${finishStyles.antenna}`} />
-        <div className={`pointer-events-none absolute -right-[10px] bottom-20 h-1 w-2 ${finishStyles.antenna}`} />
+        <div className={`pointer-events-none absolute -left-[9px] top-[9%] h-1 w-2 ${finishStyles.antenna}`} />
+        <div className={`pointer-events-none absolute -right-[9px] top-[9%] h-1 w-2 ${finishStyles.antenna}`} />
+        <div className={`pointer-events-none absolute -left-[9px] bottom-[9%] h-1 w-2 ${finishStyles.antenna}`} />
+        <div className={`pointer-events-none absolute -right-[9px] bottom-[9%] h-1 w-2 ${finishStyles.antenna}`} />
 
         {/* Inner OLED Glass Screen */}
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[45px] bg-[#000000] text-slate-100 shadow-[inset_0_0_8px_rgba(0,0,0,0.8)]">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[40px] sm:rounded-[44px] bg-[#000000] text-slate-100 shadow-[inset_0_0_8px_rgba(0,0,0,0.8)]">
           {/* iOS Top Status Bar */}
-          <div className="sticky top-0 z-40 flex items-center justify-between px-7 pt-3 pb-0.5 text-xs font-semibold text-white bg-black/40 backdrop-blur-md">
+          <div className="relative shrink-0 z-40 flex items-center justify-between px-6 pt-3 pb-1 text-xs font-semibold text-white bg-black/60 backdrop-blur-md border-b border-white/5">
             {/* Time */}
             <span className="font-bold tracking-tight text-[13px] pl-1 font-sans">9:41</span>
 
             {/* Dynamic Island */}
-            <div className="flex-1 max-w-[155px] -mt-1">
+            <div className="flex justify-center -my-1">
               <DynamicIsland onOpenProfile={onOpenProfile} />
             </div>
 
             {/* Status Icons: 5G, Wi-Fi, Battery */}
             <div className="flex items-center gap-1.5 text-white pr-1">
+              <span className="text-[10px] font-bold text-slate-300">5G</span>
               <Signal className="h-3 w-3 stroke-[2.5]" />
               <Wifi className="h-3 w-3 stroke-[2.5]" />
               {/* iOS Battery Capsule */}
@@ -107,10 +112,20 @@ export default function PhoneFrame({
             </div>
           </div>
 
-          {/* Main App Store Screen Content */}
-          <div className="relative flex-1 overflow-y-auto px-4 pt-1 pb-2 scrollbar-none">
+          {/* Main App Store Screen Content (Scrolls smoothly!) */}
+          <div className="relative flex-1 min-h-0 overflow-y-auto px-4 pt-1.5 pb-3 scrollbar-none">
             {children}
           </div>
+
+          {/* Docked Native iOS Tab Bar */}
+          {bottomBar && (
+            <div className="shrink-0 z-40">
+              {bottomBar}
+            </div>
+          )}
+
+          {/* Full-Screen Overlay Modal (iOS Product Sheet) */}
+          {overlay}
         </div>
       </div>
     </div>

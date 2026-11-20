@@ -259,7 +259,7 @@ export default function CommandPalette({
             <span>↵ Select</span>
             <span>Esc Close</span>
           </div>
-          <span>Kamal&apos;s App Store Search</span>
+          <span>kPhone • KamalOS App Store</span>
         </div>
       </div>
     </div>

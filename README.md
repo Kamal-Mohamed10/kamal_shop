@@ -1,6 +1,6 @@
-# Kamal's App Store — Personal Portfolio & Engineered Products
+# kPhone 16 Pro • KamalOS App Store — Personal Portfolio
 
-> An interactive, Apple App Store-inspired developer portfolio featuring a translucent **Liquid Glass** interface with interactive water-ripple physics and caustics, showcasing end-to-end builds (flagship products, developer utilities, and experimental systems).
+> An interactive iPhone showcase running **KamalOS 18** with a translucent **Liquid Glass** material system and water-ripple physics. The device fits 100% within the viewport with zero outer window scrolling, allowing users to surf through end-to-end builds (flagship products, developer utilities, and experimental systems) just like holding an actual iPhone.
 
 ![Liquid Glass App Store Showcase](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80)
 

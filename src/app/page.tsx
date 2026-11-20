@@ -43,7 +43,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#050811] text-slate-100 font-sans selection:bg-sky-500/30 selection:text-sky-300">
+    <div className="relative h-screen max-h-screen w-screen overflow-hidden bg-[#050811] text-slate-100 font-sans flex flex-col selection:bg-sky-500/30 selection:text-sky-300">
       {/* 1. Ambient Fluid Gradient Substrate */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -right-24 -top-24 h-[650px] w-[650px] rounded-full bg-cyan-500/12 blur-[130px]" />
@@ -55,7 +55,7 @@ export default function HomePage() {
       <WaterRippleCanvas mode={rippleMode} glassClearness="frosted" />
 
       {/* 3. Top Desktop Control Bar (Finish, Search, Resume) */}
-      <div className="relative z-20">
+      <header className="relative z-20 shrink-0 h-12 w-full border-b border-white/5 bg-slate-950/40 backdrop-blur-md flex items-center">
         <PhoneEnvironmentControls
           finish={phoneFinish}
           onSelectFinish={setPhoneFinish}
@@ -65,15 +65,30 @@ export default function HomePage() {
           onOpenResume={() => setIsResumeOpen(true)}
           installedCount={installedAppIds.size}
         />
-      </div>
+      </header>
 
-      {/* 4. Centerpiece: The Realistic Liquid Glass iPhone Device */}
-      <div className="relative z-10 flex items-center justify-center py-4 sm:py-8">
+      {/* 4. Centerpiece: The Realistic Liquid Glass kPhone 16 Pro */}
+      <main className="relative z-10 flex-1 min-h-0 w-full flex items-center justify-center p-2 sm:p-3 overflow-hidden">
         <PhoneFrame
           finish={phoneFinish}
           onOpenProfile={() => setActiveTab('profile')}
+          bottomBar={
+            <IOSTabBar
+              activeTab={activeTab}
+              onSelectTab={setActiveTab}
+              installedCount={installedAppIds.size}
+            />
+          }
+          overlay={
+            <IOSProductSheet
+              project={selectedProject}
+              onClose={() => setSelectedProject(null)}
+              isInstalled={selectedProject ? installedAppIds.has(selectedProject.id) : false}
+              onToggleInstall={(id) => handleToggleInstall(id)}
+            />
+          }
         >
-          {/* Active View inside the Phone */}
+          {/* Active View inside the Phone - Content is scrollable! */}
           {activeTab === 'today' && (
             <IOSAppStoreDiscover
               projects={PROJECTS}
@@ -86,49 +101,28 @@ export default function HomePage() {
           )}
 
           {activeTab === 'apps' && (
-            <div className="pb-6">
-              <AllAppsView
-                projects={PROJECTS}
-                onOpenSheet={setSelectedProject}
-                installedAppIds={installedAppIds}
-                onToggleInstall={handleToggleInstall}
-              />
-            </div>
+            <AllAppsView
+              projects={PROJECTS}
+              onOpenSheet={setSelectedProject}
+              installedAppIds={installedAppIds}
+              onToggleInstall={handleToggleInstall}
+            />
           )}
 
           {activeTab === 'lab' && (
-            <div className="pb-6">
-              <InTheLabView
-                projects={PROJECTS}
-                onOpenSheet={setSelectedProject}
-              />
-            </div>
+            <InTheLabView
+              projects={PROJECTS}
+              onOpenSheet={setSelectedProject}
+            />
           )}
 
           {activeTab === 'profile' && (
-            <div className="pb-6">
-              <DeveloperProfileView
-                onOpenResumeModal={() => setIsResumeOpen(true)}
-              />
-            </div>
+            <DeveloperProfileView
+              onOpenResumeModal={() => setIsResumeOpen(true)}
+            />
           )}
-
-          {/* Floating Native iOS Tab Bar inside Phone */}
-          <IOSTabBar
-            activeTab={activeTab}
-            onSelectTab={setActiveTab}
-            installedCount={installedAppIds.size}
-          />
-
-          {/* Native iOS App Store Product Sheet (Slides up inside Phone) */}
-          <IOSProductSheet
-            project={selectedProject}
-            onClose={() => setSelectedProject(null)}
-            isInstalled={selectedProject ? installedAppIds.has(selectedProject.id) : false}
-            onToggleInstall={(id) => handleToggleInstall(id)}
-          />
         </PhoneFrame>
-      </div>
+      </main>
 
       {/* 5. ⌘K Global Command Palette Dialog */}
       <CommandPalette

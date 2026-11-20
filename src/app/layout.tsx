@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Kamal's App Store | Personal Portfolio & Flagship Products",
+  title: 'kPhone 16 Pro • KamalOS App Store | Kamal Mohamed',
   description:
-    'Interactive personal App Store portfolio featuring a Liquid Glass interface with water-ripple physics, showcasing full-stack products, real estate underwriting engines, AI specs, and developer tools.',
+    'Interactive kPhone 16 Pro running KamalOS 18 with Liquid Glass aesthetics and water-ripple physics. Explore builds, real estate underwriting engines, developer tools, and lab prototypes by Kamal Mohamed.',
   keywords: [
+    'kPhone',
+    'KamalOS',
     'Kamal Mohamed',
     'Personal App Store',
     'Full Stack Engineer',
@@ -24,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-300">
+    <html lang="en" className="h-full antialiased dark overflow-hidden">
+      <body className="h-full w-full overflow-hidden flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-300">
         {children}
       </body>
     </html>

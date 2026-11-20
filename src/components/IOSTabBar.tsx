@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LayoutGrid, Compass, FlaskConical, User, Sparkles } from 'lucide-react';
+import { LayoutGrid, Compass, FlaskConical, User } from 'lucide-react';
 
 interface IOSTabBarProps {
   activeTab: 'today' | 'apps' | 'lab' | 'profile';
@@ -22,7 +22,7 @@ export default function IOSTabBar({
   ];
 
   return (
-    <div className="sticky bottom-0 inset-x-0 z-40 border-t border-slate-200/50 bg-white/80 backdrop-blur-2xl dark:border-white/10 dark:bg-black/80 transition-colors">
+    <div className="relative inset-x-0 z-40 border-t border-slate-200/50 bg-white/85 backdrop-blur-2xl dark:border-white/10 dark:bg-black/85 transition-colors">
       {/* Specular glass reflection line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20" />
 
