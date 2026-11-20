@@ -102,18 +102,19 @@ export default function IOSProductSheet({
               <div className="mt-3.5 flex items-center gap-2">
                 <AppleGetButton
                   isInstalled={isInstalled}
-                  onToggle={() => onToggleInstall(project.id)}
+                  onInstall={() => onToggleInstall(project.id)}
+                  appUrl={project.liveUrl || project.repoUrl}
                   accentColor={project.accentColor}
                   size="md"
                 />
 
                 <a
-                  href={project.liveUrl}
+                  href={project.liveUrl || project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 rounded-full bg-slate-900 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 transition-colors shadow-xs"
                 >
-                  <span>Demo</span>
+                  <span>Open App</span>
                   <ExternalLink className="h-3 w-3" />
                 </a>
 

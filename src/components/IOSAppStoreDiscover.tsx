@@ -120,7 +120,8 @@ export default function IOSAppStoreDiscover({
 
             <AppleGetButton
               isInstalled={installedAppIds.has(flagship.id)}
-              onToggle={(e) => onToggleInstall(flagship.id, e)}
+              onInstall={(e) => onToggleInstall(flagship.id, e)}
+              appUrl={flagship.liveUrl || flagship.repoUrl}
               accentColor={flagship.accentColor}
             />
           </div>
@@ -180,7 +181,8 @@ export default function IOSAppStoreDiscover({
 
               <AppleGetButton
                 isInstalled={installedAppIds.has(app.id)}
-                onToggle={(e) => onToggleInstall(app.id, e)}
+                onInstall={(e) => onToggleInstall(app.id, e)}
+                appUrl={app.liveUrl || app.repoUrl}
                 accentColor={app.accentColor}
               />
             </div>
@@ -229,7 +231,8 @@ export default function IOSAppStoreDiscover({
 
             <AppleGetButton
               isInstalled={installedAppIds.has(triageApp.id)}
-              onToggle={(e) => onToggleInstall(triageApp.id, e)}
+              onInstall={(e) => onToggleInstall(triageApp.id, e)}
+              appUrl={triageApp.liveUrl || triageApp.repoUrl}
               accentColor={triageApp.accentColor}
             />
           </div>

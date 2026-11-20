@@ -5,7 +5,10 @@ import confetti from 'canvas-confetti';
 
 interface AppleGetButtonProps {
   isInstalled: boolean;
-  onToggle: (e: React.MouseEvent) => void;
+  onToggle?: (e: React.MouseEvent) => void;
+  onInstall?: (e: React.MouseEvent) => void;
+  onOpen?: (e: React.MouseEvent) => void;
+  appUrl?: string;
   accentColor?: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
@@ -14,6 +17,9 @@ interface AppleGetButtonProps {
 export default function AppleGetButton({
   isInstalled,
   onToggle,
+  onInstall,
+  onOpen,
+  appUrl,
   accentColor = '#007AFF',
   className = '',
   size = 'md',
@@ -22,8 +28,14 @@ export default function AppleGetButton({
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+
+    // When the app is already installed, clicking OPEN launches the actual application!
     if (isInstalled) {
-      onToggle(e);
+      if (onOpen) {
+        onOpen(e);
+      } else if (appUrl) {
+        window.open(appUrl, '_blank', 'noopener,noreferrer');
+      }
       return;
     }
 
@@ -31,7 +43,11 @@ export default function AppleGetButton({
     setIsDownloading(true);
     setTimeout(() => {
       setIsDownloading(false);
-      onToggle(e);
+      if (onInstall) {
+        onInstall(e);
+      } else if (onToggle) {
+        onToggle(e);
+      }
       try {
         confetti({
           particleCount: 45,
@@ -42,7 +58,7 @@ export default function AppleGetButton({
       } catch (err) {
         // Fallback
       }
-    }, 700);
+    }, 550);
   };
 
   const sizeStyles = {
@@ -91,9 +107,10 @@ export default function AppleGetButton({
       <button
         type="button"
         onClick={handleClick}
+        title={isInstalled ? `Open application (${appUrl || 'Live Demo'})` : 'Get application'}
         className={`group flex items-center justify-center rounded-full font-black tracking-wider transition-all duration-150 active:scale-95 shadow-xs ${sizeStyles} ${
           isInstalled
-            ? 'border border-slate-300/80 bg-slate-100/90 text-[#007AFF] dark:border-white/20 dark:bg-white/10 dark:text-[#0A84FF]'
+            ? 'border border-slate-300/80 bg-slate-100/90 text-[#007AFF] hover:bg-[#007AFF] hover:text-white dark:border-white/20 dark:bg-white/10 dark:text-[#0A84FF] dark:hover:bg-[#0A84FF] dark:hover:text-white'
             : 'bg-[#007AFF] text-white hover:bg-[#0062cc] dark:bg-white/15 dark:text-[#0A84FF] dark:hover:bg-white/25'
         } ${className}`}
       >

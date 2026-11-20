@@ -193,7 +193,8 @@ export default function AllAppsView({
 
               <AppleGetButton
                 isInstalled={installedAppIds.has(app.id)}
-                onToggle={(e) => onToggleInstall(app.id, e)}
+                onInstall={(e) => onToggleInstall(app.id, e)}
+                appUrl={app.liveUrl || app.repoUrl}
                 accentColor={app.accentColor}
               />
             </div>
