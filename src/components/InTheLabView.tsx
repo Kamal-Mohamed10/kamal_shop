@@ -3,7 +3,7 @@
 import React from 'react';
 import { Project } from '@/types/project';
 import SquircleIcon from './SquircleIcon';
-import { FlaskConical, Sparkles, Terminal, ArrowUpRight, Cpu, GitBranch, Layers } from 'lucide-react';
+import { FlaskConical, ArrowRight, Sparkles, Cpu, Layers } from 'lucide-react';
 
 interface InTheLabViewProps {
   projects: Project[];
@@ -14,84 +14,72 @@ export default function InTheLabView({ projects, onOpenSheet }: InTheLabViewProp
   const labProjects = projects.filter((p) => p.shelf === 'lab');
 
   return (
-    <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-transparent p-6 md:p-8 backdrop-blur-xl dark:border-white/10 dark:from-purple-950/30 dark:via-pink-950/20">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-          <FlaskConical className="h-4 w-4" />
-          <span>Experimental Research & Prototypes</span>
-        </div>
-        <h1 className="mt-2 text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+    <div className="space-y-5 pb-8 text-slate-900 dark:text-white">
+      {/* iOS Lab Header */}
+      <div className="pt-1">
+        <p className="text-[11px] font-bold uppercase tracking-wider text-purple-500">
+          EXPERIMENTAL SYSTEMS
+        </p>
+        <h1 className="text-[34px] font-black tracking-tight leading-none">
           In The Lab
         </h1>
-        <p className="mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          Where new architectural bets, spatial interfaces, local AI runtimes, and creative algorithms are tested before production rollout.
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+          Spatial 3D canvases, local Apple Silicon LLM runtimes, and circadian audio synthesis.
         </p>
       </div>
 
-      {/* Lab Grid */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* Lab Cards */}
+      <div className="space-y-3">
         {labProjects.map((project) => (
           <div
             key={project.id}
             onClick={() => onOpenSheet(project)}
-            className="group relative flex cursor-pointer flex-col justify-between rounded-3xl border border-white/20 bg-white/40 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40 hover:bg-white/60 hover:shadow-xl dark:border-white/10 dark:bg-slate-900/40 dark:hover:border-purple-400/30 dark:hover:bg-slate-900/60"
+            className="group cursor-pointer rounded-[24px] border border-white/20 bg-white/70 p-4 shadow-md backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 transition-all hover:scale-[1.01] active:scale-[0.99]"
           >
-            <div>
-              {/* Status Pill & Shelf Tag */}
-              <div className="flex items-center justify-between pb-4">
-                <span className="flex items-center gap-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-bold text-purple-600 dark:text-purple-300">
-                  <span className="h-1.5 w-1.5 animate-ping rounded-full bg-purple-500" />
-                  {project.status}
-                </span>
-                <span className="text-[11px] font-medium text-slate-400">
-                  {project.buildTime}
-                </span>
-              </div>
-
-              {/* Icon & Title */}
-              <div className="flex items-start gap-4">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
                 <SquircleIcon
                   iconName={project.iconName}
                   gradient={project.iconGradient}
                   size="md"
                 />
                 <div>
-                  <h3 className="font-bold text-slate-900 group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-purple-500 transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[9px] font-bold text-purple-600 dark:text-purple-300">
+                      {project.status}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     {project.subtitle}
                   </p>
                 </div>
               </div>
+            </div>
 
-              {/* Problem / Experiment Focus */}
-              <div className="mt-4 rounded-xl border border-white/30 bg-white/30 p-3 text-xs text-slate-700 dark:border-white/5 dark:bg-white/5 dark:text-slate-300">
-                <p className="font-semibold text-slate-900 dark:text-white mb-1">Thesis:</p>
-                <p className="line-clamp-2">{project.problem}</p>
-              </div>
+            {/* Thesis callout */}
+            <div className="mt-3 rounded-xl border border-purple-500/15 bg-purple-500/5 p-2.5 text-xs text-slate-700 dark:text-slate-300">
+              <span className="font-bold text-purple-600 dark:text-purple-400">Thesis: </span>
+              <span>{project.problem}</span>
+            </div>
 
-              {/* Tech stack */}
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {project.stack.map((t) => (
+            <div className="mt-3 flex items-center justify-between text-xs pt-2 border-t border-slate-200/50 dark:border-white/10">
+              <div className="flex gap-1.5 flex-wrap">
+                {project.stack.slice(0, 3).map((t) => (
                   <span
                     key={t}
-                    className="rounded-md border border-slate-200/60 bg-slate-100/60 px-2 py-0.5 text-[10px] font-medium text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-400"
+                    className="rounded-md bg-slate-100 dark:bg-white/5 px-2 py-0.5 text-[10px] text-slate-600 dark:text-slate-400 font-medium"
                   >
                     {t}
                   </span>
                 ))}
               </div>
-            </div>
 
-            {/* Bottom action */}
-            <div className="mt-6 flex items-center justify-between border-t border-slate-200/50 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
-              <span>Inspect Lab Spec</span>
-              <div className="flex items-center gap-1 font-bold text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
-                <span>View Sheet</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </div>
+              <span className="text-xs font-bold text-purple-500 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                Inspect Spec →
+              </span>
             </div>
           </div>
         ))}

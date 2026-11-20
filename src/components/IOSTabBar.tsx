@@ -22,12 +22,12 @@ export default function IOSTabBar({
   ];
 
   return (
-    <div className="sticky bottom-0 inset-x-0 z-40 border-t border-white/20 bg-white/75 backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/80 transition-colors">
+    <div className="sticky bottom-0 inset-x-0 z-40 border-t border-slate-200/50 bg-white/80 backdrop-blur-2xl dark:border-white/10 dark:bg-black/80 transition-colors">
       {/* Specular glass reflection line */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent dark:via-white/20" />
 
       {/* Tabs */}
-      <div className="flex items-center justify-around px-2 pt-2 pb-1">
+      <div className="flex items-center justify-around px-2 pt-1.5 pb-0.5">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -38,14 +38,14 @@ export default function IOSTabBar({
               onClick={() => onSelectTab(tab.id)}
               className={`flex flex-col items-center justify-center py-0.5 px-3 rounded-xl transition-all ${
                 isActive
-                  ? 'text-sky-500 font-bold scale-105'
-                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
+                  ? 'text-[#007AFF] dark:text-[#0A84FF] font-bold scale-105'
+                  : 'text-slate-400 hover:text-slate-700 dark:text-[#8E8E93] dark:hover:text-white'
               }`}
             >
               <div className="relative">
-                <Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.5px]' : 'stroke-[1.75px]'}`} />
+                <Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.5px]' : 'stroke-[1.8px]'}`} />
                 {tab.id === 'apps' && installedCount > 0 && (
-                  <span className="absolute -top-1 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-[9px] font-bold text-white">
+                  <span className="absolute -top-1 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-[9px] font-bold text-white shadow-xs">
                     {installedCount}
                   </span>
                 )}
@@ -58,9 +58,9 @@ export default function IOSTabBar({
         })}
       </div>
 
-      {/* iOS Home Indicator Bar */}
-      <div className="flex justify-center pb-1.5 pt-1">
-        <div className="h-1 w-32 rounded-full bg-slate-900/30 dark:bg-white/30" />
+      {/* iOS Home Indicator Bar (Apple exact 134x5px) */}
+      <div className="flex justify-center pb-2 pt-1">
+        <div className="h-[4.5px] w-32 rounded-full bg-slate-900/40 dark:bg-white/40" />
       </div>
     </div>
   );
