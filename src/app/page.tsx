@@ -22,7 +22,7 @@ export default function HomePage() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [phoneFinish, setPhoneFinish] = useState<PhoneFinish>('natural');
   const [rippleMode, setRippleMode] = useState<RippleMode>('active');
-  const [installedAppIds, setInstalledAppIds] = useState<Set<string>>(new Set(['propscope']));
+  const [installedAppIds, setInstalledAppIds] = useState<Set<string>>(new Set(['lead-flow']));
 
   // Ensure dark mode class is applied to html
   useEffect(() => {

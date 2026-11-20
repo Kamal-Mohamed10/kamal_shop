@@ -27,10 +27,9 @@ export default function AllAppsView({
     'All',
     'Real Estate',
     'AI & Machine Learning',
-    'DevTools & Infra',
+    'Data Analytics',
+    'Web & Hospitality',
     'Productivity',
-    'FinTech',
-    'Spatial & Graphics',
   ];
 
   // All unique stack tags

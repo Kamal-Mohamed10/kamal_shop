@@ -5,15 +5,15 @@ import {
   Building2, 
   Cpu, 
   Activity, 
-  Terminal, 
+  Utensils, 
+  Home, 
+  LifeBuoy, 
+  TrendingUp, 
   PieChart, 
-  Box, 
-  Bot, 
-  Waves, 
-  Sparkles,
-  TrendingUp,
-  Layers,
-  Code2
+  Scale, 
+  Coffee, 
+  Compass, 
+  Sparkles 
 } from 'lucide-react';
 
 interface SquircleIconProps {
@@ -29,7 +29,6 @@ export default function SquircleIcon({
   gradient = ['#059669', '#10b981'],
   size = 'md',
   className = '',
-  id,
 }: SquircleIconProps) {
   // Apple App Store icon dimensions & corner radii
   const sizeMap = {
@@ -45,12 +44,10 @@ export default function SquircleIcon({
   // Bespoke Apple-grade icon visual graphics per app
   const renderIconGraphic = () => {
     switch (iconName) {
-      case 'Building2': // PropScope (Real Estate Underwriter)
+      case 'Building2': // LeadFlow NYC (Off-Market Property Intelligence)
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            {/* Architectural grid background */}
             <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.75px,transparent_0.75px)] [background-size:6px_6px] opacity-25" />
-            {/* Financial surge wave */}
             <svg className="absolute inset-0 w-full h-full stroke-emerald-200/40" viewBox="0 0 58 58" fill="none">
               <path d="M4 42 Q 20 40, 32 24 T 54 12" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
@@ -58,10 +55,9 @@ export default function SquircleIcon({
           </div>
         );
 
-      case 'Cpu': // NeuralDraft (AI Spec Generator)
+      case 'Cpu': // Customer Inbox Triage (Groq Llama 3.3 70B AI)
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            {/* Circuit traces */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_0,transparent_70%)]" />
             <svg className="absolute inset-0 w-full h-full stroke-purple-200/30" viewBox="0 0 58 58" fill="none">
               <circle cx="29" cy="29" r="18" strokeWidth="1" strokeDasharray="3 3" />
@@ -70,55 +66,75 @@ export default function SquircleIcon({
           </div>
         );
 
-      case 'Activity': // CloudPulse (Observability Radar)
+      case 'Utensils': // Sylvia's Restaurant & Reservations
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            {/* Radar concentric rings */}
-            <div className="absolute h-4/5 w-4/5 rounded-full border border-sky-200/25" />
-            <div className="absolute h-1/2 w-1/2 rounded-full border border-sky-200/35" />
+            <div className="absolute inset-0 bg-gradient-to-t from-rose-950/40 to-transparent" />
+            <Utensils className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+          </div>
+        );
+
+      case 'Home': // Dual-Transaction Lead Marketplace
+        return (
+          <div className="relative flex items-center justify-center w-full h-full">
+            <div className="absolute inset-0 bg-[radial-gradient(#ffffff_0.75px,transparent_0.75px)] [background-size:8px_8px] opacity-20" />
+            <Home className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+          </div>
+        );
+
+      case 'Activity': // NYC Collisions Data Visualizer
+        return (
+          <div className="relative flex items-center justify-center w-full h-full">
+            <div className="absolute h-4/5 w-4/5 rounded-full border border-rose-200/25" />
             <Activity className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 
-      case 'Terminal': // DevSnap (AST Snippet Vault)
+      case 'LifeBuoy': // Support Ticket Triage MVP
         return (
           <div className="relative flex items-center justify-center w-full h-full">
             <div className="absolute inset-x-2 top-2 h-1 bg-white/20 rounded-full" />
-            <Terminal className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+            <LifeBuoy className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 
-      case 'PieChart': // FinFlow (Monte Carlo Simulator)
+      case 'TrendingUp': // Sales Performance Analytics
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            <div className="absolute inset-0 bg-gradient-to-t from-teal-900/40 to-transparent" />
+            <svg className="absolute inset-0 w-full h-full stroke-purple-200/40" viewBox="0 0 58 58" fill="none">
+              <path d="M 6 45 L 20 32 L 34 38 L 52 14" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <TrendingUp className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+          </div>
+        );
+
+      case 'PieChart': // IT Help Desk Ticket Analytics
+        return (
+          <div className="relative flex items-center justify-center w-full h-full">
+            <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/40 to-transparent" />
             <PieChart className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 
-      case 'Box': // VoxelCanvas (3D Spatial Canvas)
+      case 'Scale': // Unit Converter
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff15_1px,transparent_1px),linear-gradient(to_bottom,#ffffff15_1px,transparent_1px)] bg-[size:8px_8px]" />
-            <Box className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+            <Scale className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 
-      case 'Bot': // AgentKernel (Local Agent Runtime)
+      case 'Coffee': // Zainoubia Cafe & Lounge
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            <div className="absolute h-2 w-8 bg-white/30 rounded-full blur-[1px] top-3" />
-            <Bot className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+            <Coffee className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 
-      case 'Waves': // FluidSound (Circadian Synthesizer)
+      case 'Compass': // Adventure Story Engine
         return (
           <div className="relative flex items-center justify-center w-full h-full">
-            <svg className="absolute inset-0 w-full h-full stroke-cyan-200/40" viewBox="0 0 58 58" fill="none">
-              <path d="M 6 29 Q 18 10, 29 29 T 52 29" strokeWidth="2" />
-            </svg>
-            <Waves className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
+            <div className="absolute h-3/4 w-3/4 rounded-full border border-purple-200/30" />
+            <Compass className={`${currentSize.icon} text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] z-10`} />
           </div>
         );
 

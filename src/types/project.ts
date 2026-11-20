@@ -1,16 +1,17 @@
 export type ProjectCategory = 
   | 'Real Estate'
   | 'AI & Machine Learning'
-  | 'DevTools & Infra'
+  | 'Data Analytics'
+  | 'Web & Hospitality'
   | 'Productivity'
-  | 'FinTech'
-  | 'Spatial & Graphics';
+  | 'DevTools & Infra';
 
 export type ProjectShelf = 'featured' | 'weekend-builds' | 'utilities' | 'lab';
 
 export type ProjectStatus = 
   | 'v1.4 Live'
   | 'v1.2 Live'
+  | 'v1.1 Live'
   | 'v1.0 Live'
   | 'Beta'
   | 'In Progress'

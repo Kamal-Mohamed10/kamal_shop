@@ -8,12 +8,13 @@ import {
   Check, 
   Code2, 
   Copy, 
-  Play, 
   Sliders, 
   TrendingUp, 
   Cpu, 
-  Terminal, 
-  Volume2 
+  AlertTriangle,
+  ShieldCheck,
+  Zap,
+  ArrowRight
 } from 'lucide-react';
 
 interface InteractiveMockupProps {
@@ -25,149 +26,175 @@ export default function InteractiveMockup({
   type,
   accentColor = '#10b981',
 }: InteractiveMockupProps) {
-  // PropScope interactive underwriting state
-  const [purchasePrice, setPurchasePrice] = useState(485000);
-  const [monthlyRent, setMonthlyRent] = useState(3800);
-  const [interestRate, setInterestRate] = useState(6.5);
-  const [downPaymentPct, setDownPaymentPct] = useState(25);
+  // LeadFlow NYC interactive valuation & distress scoring state
+  const [marketValue, setMarketValue] = useState(750000);
+  const [mortgageDebt, setMortgageDebt] = useState(380000);
+  const [taxLiens, setTaxLiens] = useState(35000);
+  const [urgencyPillar, setUrgencyPillar] = useState<'lis_pendens' | 'probate' | 'tax_lien' | 'vacant'>('lis_pendens');
 
-  // AI Chat streaming mock state
-  const [specTopic, setSpecTopic] = useState('Auth + Stripe Billing');
-  const [copied, setCopied] = useState(false);
+  // AI Triage test message state
+  const [selectedScenarioIndex, setSelectedScenarioIndex] = useState(0);
 
-  // Financial calculations
-  const downPayment = (purchasePrice * downPaymentPct) / 100;
-  const loanAmount = purchasePrice - downPayment;
-  const monthlyInterest = interestRate / 100 / 12;
-  const numPayments = 360;
-  const monthlyMortgage =
-    (loanAmount * (monthlyInterest * Math.pow(1 + monthlyInterest, numPayments))) /
-    (Math.pow(1 + monthlyInterest, numPayments) - 1);
+  const scenarios = [
+    {
+      label: 'Production Outage',
+      message: 'Our production database is unreachable and all agent logins are failing across NYC.',
+      tier: 'P0',
+      sla: '15 min (24/7)',
+      queue: 'Infrastructure / SRE',
+      category: 'System Outage',
+      score: 95,
+      signals: ['Production Down', 'All Logins Blocked', 'Critical Incident'],
+      badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+    },
+    {
+      label: 'Billing Blocked',
+      message: 'My payment failed and now my wholesalers cannot download property reports before the auction.',
+      tier: 'P1',
+      sla: '1 hour',
+      queue: 'Billing & Subscriptions',
+      category: 'Payment Failure',
+      score: 75,
+      signals: ['Payment Failed', 'Feature Blocked', 'High Business Impact'],
+      badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    },
+    {
+      label: 'General Inquiry',
+      message: 'No rush at all! Just wondering how to export a custom CSV of the Brooklyn parcels whenever you have time.',
+      tier: 'P3',
+      sla: '1 business day',
+      queue: 'General Support',
+      category: 'Product Feedback',
+      score: 18,
+      signals: ['Explicit No Rush', 'Feature How-To', 'Non-blocking'],
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    },
+  ];
 
-  const annualRent = monthlyRent * 12;
-  const operatingExpenses = annualRent * 0.35; // 35% opex + vacancy
-  const annualNOI = annualRent - operatingExpenses;
-  const capRate = ((annualNOI / purchasePrice) * 100).toFixed(2);
-  const annualDebtService = monthlyMortgage * 12;
-  const annualCashFlow = annualNOI - annualDebtService;
-  const cashOnCash = ((annualCashFlow / downPayment) * 100).toFixed(2);
-  const dscr = (annualNOI / annualDebtService).toFixed(2);
+  // LeadFlow calculated metrics
+  const totalDebt = mortgageDebt + taxLiens;
+  const netEquity = Math.max(0, marketValue - totalDebt);
+  const equitySpreadPct = ((netEquity / marketValue) * 100).toFixed(1);
+  
+  // 4-pillar score calculation
+  const distressPoints = urgencyPillar === 'lis_pendens' ? 42 : urgencyPillar === 'tax_lien' ? 38 : urgencyPillar === 'probate' ? 34 : 28;
+  const equityPoints = Number(equitySpreadPct) > 40 ? 25 : Number(equitySpreadPct) > 20 ? 18 : 10;
+  const capitalStagnationPoints = 15;
+  const agilityPoints = 10;
+  const totalOpportunityScore = Math.min(100, distressPoints + equityPoints + capitalStagnationPoints + agilityPoints);
 
   if (type === 'dashboard') {
     return (
-      <div className="w-full rounded-2xl border border-white/20 bg-slate-950/60 p-5 text-slate-100 shadow-2xl backdrop-blur-xl">
-        <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+      <div className="w-full rounded-2xl border border-white/20 bg-slate-950/70 p-4 text-slate-100 shadow-2xl backdrop-blur-xl">
+        <div className="mb-3 flex items-center justify-between border-b border-white/10 pb-2.5">
           <div className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400">
               <Building2 className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
-                Interactive Underwriter
+              <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                LeadFlow NYC Opportunity Engine
               </p>
-              <h4 className="text-sm font-bold text-white">412 Oakwood Ave, Atlanta GA</h4>
+              <h4 className="text-xs font-bold text-white">742 Evergreen Ave, Brooklyn (BBL: 3-03421-0012)</h4>
             </div>
           </div>
-          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300">
+          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-300">
             Live Math Engine
           </span>
         </div>
 
         {/* Sliders */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5 rounded-xl border border-white/5 bg-white/5 p-3">
-            <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Purchase Price</span>
-              <span className="font-semibold text-white">
-                ${purchasePrice.toLocaleString()}
-              </span>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="space-y-1 rounded-xl border border-white/5 bg-white/5 p-2.5">
+            <div className="flex justify-between text-[11px]">
+              <span className="text-slate-400">NYC DOF Market Value</span>
+              <span className="font-semibold text-white">${marketValue.toLocaleString()}</span>
             </div>
             <input
               type="range"
-              min="200000"
-              max="1200000"
-              step="10000"
-              value={purchasePrice}
-              onChange={(e) => setPurchasePrice(Number(e.target.value))}
+              min="300000"
+              max="2000000"
+              step="25000"
+              value={marketValue}
+              onChange={(e) => setMarketValue(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-700 accent-emerald-400"
             />
           </div>
 
-          <div className="space-y-1.5 rounded-xl border border-white/5 bg-white/5 p-3">
-            <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Monthly Gross Rent</span>
-              <span className="font-semibold text-white">
-                ${monthlyRent.toLocaleString()}/mo
-              </span>
+          <div className="space-y-1 rounded-xl border border-white/5 bg-white/5 p-2.5">
+            <div className="flex justify-between text-[11px]">
+              <span className="text-slate-400">ACRIS Recorded Mortgage</span>
+              <span className="font-semibold text-white">${mortgageDebt.toLocaleString()}</span>
             </div>
             <input
               type="range"
-              min="1500"
-              max="9000"
-              step="100"
-              value={monthlyRent}
-              onChange={(e) => setMonthlyRent(Number(e.target.value))}
+              min="0"
+              max="1500000"
+              step="20000"
+              value={mortgageDebt}
+              onChange={(e) => setMortgageDebt(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-700 accent-emerald-400"
             />
           </div>
 
-          <div className="space-y-1.5 rounded-xl border border-white/5 bg-white/5 p-3">
-            <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Mortgage Interest Rate</span>
-              <span className="font-semibold text-white">{interestRate}%</span>
+          <div className="space-y-1 rounded-xl border border-white/5 bg-white/5 p-2.5">
+            <div className="flex justify-between text-[11px]">
+              <span className="text-slate-400">DOF Municipal Tax Liens</span>
+              <span className="font-semibold text-white">${taxLiens.toLocaleString()}</span>
             </div>
             <input
               type="range"
-              min="4.0"
-              max="10.0"
-              step="0.1"
-              value={interestRate}
-              onChange={(e) => setInterestRate(Number(e.target.value))}
+              min="0"
+              max="200000"
+              step="5000"
+              value={taxLiens}
+              onChange={(e) => setTaxLiens(Number(e.target.value))}
               className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-700 accent-emerald-400"
             />
           </div>
 
-          <div className="space-y-1.5 rounded-xl border border-white/5 bg-white/5 p-3">
-            <div className="flex justify-between text-xs">
-              <span className="text-slate-400">Down Payment</span>
-              <span className="font-semibold text-white">{downPaymentPct}% (${(downPayment / 1000).toFixed(0)}k)</span>
+          <div className="space-y-1 rounded-xl border border-white/5 bg-white/5 p-2.5">
+            <div className="flex justify-between text-[11px]">
+              <span className="text-slate-400">Distress Urgency Catalyst</span>
+              <span className="font-semibold text-emerald-400 capitalize">{urgencyPillar.replace('_', ' ')}</span>
             </div>
-            <input
-              type="range"
-              min="10"
-              max="50"
-              step="5"
-              value={downPaymentPct}
-              onChange={(e) => setDownPaymentPct(Number(e.target.value))}
-              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-700 accent-emerald-400"
-            />
+            <div className="grid grid-cols-4 gap-1 pt-1">
+              {(['lis_pendens', 'tax_lien', 'probate', 'vacant'] as const).map((u) => (
+                <button
+                  key={u}
+                  type="button"
+                  onClick={() => setUrgencyPillar(u)}
+                  className={`rounded py-0.5 text-[9px] font-bold uppercase transition-all ${
+                    urgencyPillar === u
+                      ? 'bg-emerald-500 text-white shadow-xs'
+                      : 'bg-white/5 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {u.split('_')[0]}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Calculated Output Cards */}
-        <div className="mt-4 grid grid-cols-3 gap-2.5">
-          <div className="rounded-xl border border-white/10 bg-slate-900/80 p-3 text-center">
-            <p className="text-[10px] font-medium uppercase text-slate-400">Cap Rate</p>
-            <p className={`mt-0.5 text-lg font-bold ${Number(capRate) >= 7 ? 'text-emerald-400' : 'text-amber-400'}`}>
-              {capRate}%
-            </p>
-            <p className="text-[10px] text-slate-400">NOI: ${(annualNOI / 1000).toFixed(1)}k/yr</p>
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-2.5 text-center">
+            <p className="text-[9px] font-bold uppercase text-slate-400">Opportunity Score</p>
+            <p className="mt-0.5 text-base font-black text-emerald-400">{totalOpportunityScore} / 100</p>
+            <p className="text-[9px] text-emerald-300 font-medium">Rank #1 Target</p>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-slate-900/80 p-3 text-center">
-            <p className="text-[10px] font-medium uppercase text-slate-400">Cash-on-Cash</p>
-            <p className={`mt-0.5 text-lg font-bold ${Number(cashOnCash) >= 8 ? 'text-emerald-400' : 'text-cyan-400'}`}>
-              {cashOnCash}%
-            </p>
-            <p className="text-[10px] text-slate-400">${(annualCashFlow / 12).toFixed(0)}/mo net</p>
+          <div className="rounded-xl border border-white/10 bg-slate-900/80 p-2.5 text-center">
+            <p className="text-[9px] font-bold uppercase text-slate-400">Net Equity</p>
+            <p className="mt-0.5 text-base font-black text-cyan-400">${(netEquity / 1000).toFixed(0)}k</p>
+            <p className="text-[9px] text-slate-400">{equitySpreadPct}% Spread</p>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-slate-900/80 p-3 text-center">
-            <p className="text-[10px] font-medium uppercase text-slate-400">DSCR Ratio</p>
-            <p className={`mt-0.5 text-lg font-bold ${Number(dscr) >= 1.25 ? 'text-emerald-400' : 'text-rose-400'}`}>
-              {dscr}x
-            </p>
-            <p className="text-[10px] text-slate-400">{Number(dscr) >= 1.25 ? 'Lender Approved' : 'Tight Coverage'}</p>
+          <div className="rounded-xl border border-white/10 bg-slate-900/80 p-2.5 text-center">
+            <p className="text-[9px] font-bold uppercase text-slate-400">Total Recorded Debt</p>
+            <p className="mt-0.5 text-base font-black text-slate-200">${(totalDebt / 1000).toFixed(0)}k</p>
+            <p className="text-[9px] text-slate-400">ACRIS + Liens</p>
           </div>
         </div>
       </div>
@@ -175,45 +202,72 @@ export default function InteractiveMockup({
   }
 
   if (type === 'ai-chat') {
+    const current = scenarios[selectedScenarioIndex];
+
     return (
-      <div className="w-full rounded-2xl border border-white/20 bg-slate-950/70 p-5 text-slate-100 shadow-2xl backdrop-blur-xl">
-        <div className="mb-3 flex items-center justify-between border-b border-white/10 pb-3">
+      <div className="w-full rounded-2xl border border-white/20 bg-slate-950/70 p-4 text-slate-100 shadow-2xl backdrop-blur-xl">
+        <div className="mb-2.5 flex items-center justify-between border-b border-white/10 pb-2.5">
           <div className="flex items-center gap-2">
             <Cpu className="h-4 w-4 text-purple-400" />
-            <span className="text-xs font-semibold text-purple-300">NeuralDraft Engine Preview</span>
+            <span className="text-xs font-bold text-purple-300">Customer Inbox Triage • Groq AI</span>
           </div>
-          <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[10px] text-purple-300">
-            Streaming AST
+          <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-[9px] font-bold text-purple-300 border border-purple-500/30">
+            Llama 3.3 70B
           </span>
         </div>
 
-        <div className="space-y-3 text-xs">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-            <p className="text-[11px] text-slate-400">Architect Prompt:</p>
-            <p className="mt-1 font-medium text-slate-200">
-              Generate a high-throughput webhook handler with idempotency keys in PostgreSQL.
-            </p>
+        {/* Scenario Switcher */}
+        <div className="mb-2 flex items-center gap-1.5">
+          <span className="text-[10px] text-slate-400 font-bold uppercase">Test Ticket:</span>
+          {scenarios.map((s, idx) => (
+            <button
+              key={s.label}
+              type="button"
+              onClick={() => setSelectedScenarioIndex(idx)}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold transition-all ${
+                selectedScenarioIndex === idx
+                  ? 'bg-purple-600 text-white shadow-xs'
+                  : 'bg-white/5 text-slate-400 hover:text-white'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Incoming Customer Message Box */}
+        <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-xs">
+          <p className="text-[10px] font-semibold text-slate-400 uppercase">Incoming Message:</p>
+          <p className="mt-0.5 text-[11px] text-slate-200 font-medium leading-snug">
+            &ldquo;{current.message}&rdquo;
+          </p>
+        </div>
+
+        {/* Triage Decision Card */}
+        <div className="mt-2.5 rounded-xl border border-purple-500/30 bg-purple-950/20 p-3 space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className={`rounded-md border px-2 py-0.5 text-xs font-black ${current.badgeColor}`}>
+                {current.tier} • {current.sla}
+              </span>
+              <span className="text-xs font-bold text-white">{current.category}</span>
+            </div>
+            <span className="text-[10px] font-mono text-purple-300 font-bold">
+              Score: {current.score}/100
+            </span>
           </div>
 
-          <div className="rounded-xl border border-purple-500/30 bg-purple-950/30 p-3.5 font-mono text-[11px] leading-relaxed text-purple-200">
-            <div className="mb-1 flex items-center justify-between text-[10px] text-purple-400">
-              <span>GENERATED DDL & REST SPEC</span>
-              <span className="flex items-center gap-1 text-emerald-400">
-                <Check className="h-3 w-3" /> Validated
+          <div className="flex items-center justify-between text-[10px] border-t border-purple-500/20 pt-1.5">
+            <span className="text-slate-400">Assigned Queue:</span>
+            <span className="font-bold text-slate-200">{current.queue}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1 pt-0.5">
+            {current.signals.map((sig) => (
+              <span key={sig} className="rounded bg-white/10 px-1.5 py-0.5 text-[9px] text-purple-200 font-medium">
+                ✓ {sig}
               </span>
-            </div>
-            <pre className="overflow-x-auto text-slate-300">
-{`CREATE TABLE webhook_events (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  idempotency_key VARCHAR(128) UNIQUE NOT NULL,
-  event_type VARCHAR(64) NOT NULL,
-  payload JSONB NOT NULL,
-  status VARCHAR(24) DEFAULT 'pending',
-  processed_at TIMESTAMPTZ,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-CREATE INDEX idx_wh_idemp ON webhook_events(idempotency_key);`}
-            </pre>
+            ))}
           </div>
         </div>
       </div>
@@ -222,8 +276,7 @@ CREATE INDEX idx_wh_idemp ON webhook_events(idempotency_key);`}
 
   if (type === 'map') {
     return (
-      <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-white/20 bg-slate-900 shadow-2xl">
-        {/* Stylized vector map grid background */}
+      <div className="relative h-60 w-full overflow-hidden rounded-2xl border border-white/20 bg-slate-900 shadow-2xl">
         <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
 
         {/* Map roads/parcels SVG mock */}
@@ -232,7 +285,6 @@ CREATE INDEX idx_wh_idemp ON webhook_events(idempotency_key);`}
           <line x1="120" y1="10" x2="160" y2="240" strokeWidth="4" />
           <line x1="280" y1="20" x2="310" y2="250" strokeWidth="3" />
           <line x1="40" y1="180" x2="480" y2="170" strokeWidth="2" />
-          {/* Parcel polygons */}
           <rect x="180" y="70" width="85" height="60" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" strokeWidth="1.5" />
           <rect x="70" y="90" width="40" height="50" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" strokeWidth="1" />
           <rect x="330" y="95" width="70" height="55" fill="rgba(56, 189, 248, 0.1)" stroke="#38bdf8" strokeWidth="1" />
@@ -242,37 +294,37 @@ CREATE INDEX idx_wh_idemp ON webhook_events(idempotency_key);`}
         <div className="absolute left-[200px] top-[75px] z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center">
           <div className="flex items-center gap-1.5 rounded-full border border-emerald-400/50 bg-slate-950/90 px-3 py-1 text-xs font-bold text-emerald-300 shadow-xl backdrop-blur-md">
             <span className="h-2 w-2 animate-ping rounded-full bg-emerald-400" />
-            Subject: $485k (8.4% Cap)
+            742 Evergreen • Score 92
           </div>
           <MapPin className="h-6 w-6 text-emerald-400 drop-shadow-[0_4px_8px_rgba(16,185,129,0.5)]" />
         </div>
 
         {/* Overlay metrics badge */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-xs backdrop-blur-md">
-          <span className="text-slate-300">Neighborhood 0.5-mi Comps: 18 Sold</span>
-          <span className="font-semibold text-emerald-400">+14.2% Rent Premium vs County Avg</span>
+        <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between rounded-xl border border-white/10 bg-slate-950/80 px-3 py-1.5 text-xs backdrop-blur-md">
+          <span className="text-slate-300 text-[10px]">NYC 5-Borough Registry: 50,000+ Parcels</span>
+          <span className="font-bold text-emerald-400 text-[10px]">ACRIS + DOF Linked</span>
         </div>
       </div>
     );
   }
 
-  // Fallback / Generic Code & Chart
+  // Code / Generic Fallback
   return (
-    <div className="flex h-56 w-full flex-col justify-center rounded-2xl border border-white/20 bg-slate-950/80 p-6 text-slate-200 backdrop-blur-xl">
+    <div className="flex h-56 w-full flex-col justify-center rounded-2xl border border-white/20 bg-slate-950/80 p-5 text-slate-200 backdrop-blur-xl">
       <div className="mb-2 flex items-center gap-2 text-sky-400">
-        <Sparkles className="h-5 w-5" />
+        <Sparkles className="h-4 w-4" />
         <span className="text-xs font-bold uppercase tracking-wider">Engineered Architecture</span>
       </div>
-      <p className="text-sm font-semibold text-white">Full-Stack Execution & System Polish</p>
-      <p className="mt-2 text-xs text-slate-400">
+      <p className="text-sm font-bold text-white">Full-Stack Execution & System Polish</p>
+      <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
         Engineered with clean separation of concerns, high-concurrency data models, and sub-second user responsiveness.
       </p>
-      <div className="mt-4 flex gap-2">
-        <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-slate-300">
-          60fps Smooth Physics
+      <div className="mt-3.5 flex flex-wrap gap-2">
+        <span className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-mono text-slate-300">
+          Clean TypeScript / Python
         </span>
-        <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-mono text-emerald-300">
-          Zero Layout Shifts
+        <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-mono text-emerald-300">
+          Verified Production Code
         </span>
       </div>
     </div>

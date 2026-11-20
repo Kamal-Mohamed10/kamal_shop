@@ -32,12 +32,12 @@ CORE SKILLS:
 - Systems & AI: Vercel AI SDK, Distributed Systems, WebSockets, Docker, Local LLMs
 
 FLAGSHIP PROJECTS:
-1. PropScope: Automated Real Estate Deal & Cash-Flow Analyzer (Next.js, TypeScript, PostGIS, Mapbox)
-   - Real-time Cap Rate, Cash-on-Cash, and DSCR underwriter with sub-120ms PostGIS queries across 50k+ parcels.
-2. NeuralDraft: AI-Native Technical Architecture & PRD Generator (Next.js, AI SDK, OpenAI, Supabase)
-   - Streaming LLM engine generating Mermaid sequence diagrams and PostgreSQL DDL schemas.
-3. CloudPulse: Real-Time Microservice Observability & Incident Radar (Go, React, WebSockets, ClickHouse)
-   - High-throughput telemetry pipeline ingesting 250,000 events/sec with anomaly detection.
+1. LeadFlow NYC: Off-Market Property Intelligence & Distress Scoring (Next.js 16, TypeScript, Supabase, Mapbox, ACRIS/DOF)
+   - Pairs live NYC municipal registries with transparent 0-100 opportunity scoring and multi-page client-side PDF export.
+2. Customer Inbox Triage: AI Support Ticket Classifier & SLA Urgency Scorer (React, Groq Llama 3.3 70B, Tailwind, node:test)
+   - Dual-stage classification isolating prompts against injection with deterministic SLA priority scoring (P0-P3).
+3. Sylvia's Restaurant & Reservations: Faithful Brand Clone with Postgres Booking Engine (Next.js 16, PostgreSQL, Zod, SQL)
+   - Full event booking calendar and reservation modal executing Zod-validated parameterized SQL inserts.
 
 EXPERIENCE:
 - Full-Stack Product Engineer | Independent Engineering & Products (2024 - Present)
@@ -164,42 +164,42 @@ EXPERIENCE:
               <div className="rounded-xl border border-slate-200 p-3.5 dark:border-white/10">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-bold text-slate-900 dark:text-white">
-                    PropScope — Automated Real Estate Deal & Cash-Flow Analyzer
+                    LeadFlow NYC — Off-Market Property Intelligence &amp; Distress Scoring
                   </p>
                   <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400">
-                    Next.js • PostGIS • Mapbox
+                    Next.js 16 • Supabase • Mapbox • ACRIS
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                  Real-time Cap Rate, Cash-on-Cash, and DSCR underwriter with sub-120ms PostGIS spatial queries across 50,000+ parcel records. Generates institutional-grade PDF memos for private lenders.
+                  Ingests live NYC public municipal registries (ACRIS, DOF, HPD) with transparent 4-pillar 0–100 distress scoring. Includes multi-page client-side PDF export and DNC-scrubbed owner intelligence.
                 </p>
               </div>
 
               <div className="rounded-xl border border-slate-200 p-3.5 dark:border-white/10">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-bold text-slate-900 dark:text-white">
-                    NeuralDraft — AI-Native Technical Spec & Architecture Generator
+                    Customer Inbox Triage — AI Ticket Classifier &amp; SLA Urgency Scorer
                   </p>
                   <span className="text-[11px] font-mono text-purple-600 dark:text-purple-400">
-                    AI SDK • TypeScript • Supabase
+                    React • Groq Llama 3.3 70B • node:test
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                  Streaming LLM pipeline decomposing prompts into domain models, state machines, auto-rendered Mermaid sequence diagrams, and validated PostgreSQL DDL schemas.
+                  Dual-stage triage pipeline categorizing incoming messages with Groq Llama 3.3 70B while computing SLA urgency (P0 to P3) deterministically to prevent prompt injection jailbreaks.
                 </p>
               </div>
 
               <div className="rounded-xl border border-slate-200 p-3.5 dark:border-white/10">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-bold text-slate-900 dark:text-white">
-                    CloudPulse — Microservice Observability & Incident Radar
+                    Sylvia&apos;s Restaurant &amp; Reservations — Faithful Brand Clone &amp; SQL Engine
                   </p>
-                  <span className="text-[11px] font-mono text-sky-600 dark:text-sky-400">
-                    Go • WebSockets • ClickHouse
+                  <span className="text-[11px] font-mono text-rose-600 dark:text-rose-400">
+                    Next.js 16 • PostgreSQL • Zod • SQL
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
-                  High-throughput Go ingest proxy writing telemetry into columnar ClickHouse storage. Sub-second browser delta updates over persistent binary WebSockets.
+                  Faithful Harlem restaurant clone featuring dynamic Pinboard, Agenda, and Calendar views hydrated from Postgres with party-size booking modal executing parameterized SQL inserts.
                 </p>
               </div>
             </div>

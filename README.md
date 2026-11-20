@@ -20,14 +20,17 @@ Traditional developer portfolios list static links and GitHub repositories that 
 
 | Application | Domain | Status | Key Stack | Core Value Proposition |
 | :--- | :--- | :--- | :--- | :--- |
-| **[PropScope](https://github.com/Kamal-Mohamed10/propscope)** | Real Estate | `v1.4 Live` | Next.js, PostGIS, Mapbox, TypeScript | Automated Cap Rate, Cash-on-Cash & DSCR underwriter querying 50k+ parcels in < 120ms |
-| **[NeuralDraft](https://github.com/Kamal-Mohamed10/neuraldraft)** | AI / Systems | `v1.2 Live` | Vercel AI SDK, Supabase, OpenAI | AI-native technical spec engine generating Mermaid diagrams and validated PostgreSQL DDL schemas |
-| **[CloudPulse](https://github.com/Kamal-Mohamed10/cloudpulse)** | DevTools & Infra | `v1.0 Live` | Go, ClickHouse, WebSockets, React | Light-speed microservice observability ingesting 250k events/sec with sub-second browser streams |
-| **[DevSnap](https://github.com/Kamal-Mohamed10/devsnap)** | Productivity | `v1.2 Live` | Rust, Tauri, SQLite, Next.js | Spotlight-triggered terminal snippet vault with instant Tree-sitter AST search |
-| **[FinFlow](https://github.com/Kamal-Mohamed10/finflow)** | FinTech | `v1.0 Live` | Next.js, Python FastAPI, Chart.js | 10,000-path Monte Carlo runway & unit economics forecaster |
-| **[VoxelCanvas](https://github.com/Kamal-Mohamed10/voxelcanvas)** | Spatial (Lab) | `Prototype` | Three.js, WebGL, WebRTC | Collaborative browser voxel block modeling with realistic volumetric lighting |
-| **[AgentKernel](https://github.com/Kamal-Mohamed10/agentkernel)** | AI (Lab) | `In Progress` | Rust, Swift, Llama.cpp, Metal | Local-first autonomous agent runtime running on Apple Silicon without cloud APIs |
-| **[FluidSound](https://github.com/Kamal-Mohamed10/fluidsound)** | Audio (Lab) | `Concept` | Web Audio API, Canvas | Circadian ambient soundscape synthesizer generating binaural brown noise with 0 KB audio assets |
+| **[LeadFlow NYC](https://github.com/Kamal-Mohamed10/lead-flow)** | Real Estate | `v1.4 Live` | Next.js 16, Supabase, Mapbox, ACRIS/DOF | NYC off-market property intelligence pairing ACRIS deeds and DOF valuations with 0–100 distress scoring |
+| **[Customer Inbox Triage](https://github.com/Kamal-Mohamed10/l2-triage)** | AI / Systems | `v1.2 Live` | React, Groq API (Llama 3.3 70B), node:test | Dual-stage ticket classification with deterministic SLA urgency scoring and prompt injection hardening |
+| **[Sylvia's Restaurant Clone](https://github.com/Kamal-Mohamed10/clone-project-sylvia)** | Web & Hospitality | `v1.1 Live` | Next.js 16, PostgreSQL, Zod, SQL | Faithful Harlem restaurant clone with native Postgres event reservation booking engine |
+| **[Real Estate Lead Marketplace](https://github.com/Kamal-Mohamed10/real-estate-project)** | Real Estate | `Beta` | Next.js, Supabase RLS, Mapbox | B2B lead marketplace MVP for homeowners selling and buying properties at the same time |
+| **[NYC Collisions Visualizer](https://github.com/Kamal-Mohamed10/data-visual-api)** | Data Analytics | `v1.0 Live` | JavaScript, Chart.js, NYC Open Data | Live urban collision data exploration querying NYC Open Data Socrata APIs across 50,000+ records |
+| **[Support Ticket Triage MVP](https://github.com/Kamal-Mohamed10/MVP)** | Productivity | `v1.0 Live` | Python, Flask, NLP Heuristics, SQLite | SLA-aware ticket queue prioritization cutting morning triage times from minutes to seconds |
+| **[Sales Performance Analytics](https://github.com/Kamal-Mohamed10/sales-performance-analysis)** | Data Analytics | `v1.0 Live` | Python, Pandas, Matplotlib, SQL | Revenue trend and cohort analysis engine processing 100k+ transaction records |
+| **[IT Help Desk Analytics](https://github.com/Kamal-Mohamed10/helpdesk-ticket-analysis)** | Data Analytics (Lab) | `Prototype` | Python, Pandas, Matplotlib | Mean Time to Resolution (MTTR) benchmark calculations and workload bottleneck modeling |
+| **[Unit Converter](https://github.com/Kamal-Mohamed10/Unit-Converter)** | Productivity (Lab) | `Prototype` | JavaScript, HTML5, CSS3 | Instant bidirectional metric converter with zero dependencies and sub-2ms response time |
+| **[Zainoubia Cafe](https://github.com/Kamal-Mohamed10/zainoubia)** | Web (Lab) | `Concept` | HTML5, CSS3, Modern Typography | Atmospheric cafe digital storefront with mobile-optimized menu navigation |
+| **[Adventure Engine](https://github.com/Kamal-Mohamed10/Adventure)** | State Graph (Lab) | `Concept` | JavaScript, DAG Graph, State Machine | Finite state machine branching narrative engine with inventory state tracking |
 
 ---
 
